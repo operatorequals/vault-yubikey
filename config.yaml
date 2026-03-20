@@ -1,13 +1,8 @@
-# vault-yubikey-ng Configuration Example
-# This file demonstrates all available configuration options.
-# Copy this file to ~/.vault-yubikey.yaml or specify its path via VAULT_YUBIKEY_CONFIG environment variable.
-# Environment variables take precedence over values in this file.
-
 # Certificate Signing Request (CSR) Configuration
 # These fields define the subject and extensions for the certificate
 csr:
   # Subject fields
-  common_name: "admin@example.com" # Common name (CN) - typically a hostname
+  common_name: "john.torakis@example.com" # Common name (CN) - typically a hostname
   organization: "My Organization Inc." # Organization name (O)
   organizational_unit: "Engineering" # Organizational unit (OU)
   country: "US" # Country code (C) - 2 letter ISO code
@@ -17,14 +12,14 @@ csr:
   postal_code: "94105" # Postal/ZIP code (optional)
 
   # Certificate extensions
-  dns_names: # DNS SAN entries
-    - "example.com"
-    - "*.example.com"
   email_addresses: # Email SAN entries
-    - "admin@example.com"
+    - "john.torakis@example.com"
   ip_addresses: # IP address SAN entries
     - "192.168.1.1"
     - "10.0.0.1"
+
+  extra:
+    createdBy: vault-yubikey
 
 # Yubikey Configuration
 yubikey:
@@ -45,28 +40,12 @@ yubikey:
 
 # Vault Configuration
 vault:
-  # Vault server address
-  # Can be overridden by VAULT_ADDR environment variable
-  # Default: https://127.0.0.1:8200
-  vault_address: "https://vault.example.com:8200"
+  vault_address: "https://localhost:8200"
+  skip_verify: true
+  # ca_file: "/etc/ssl/certs/vault-ca.pem"
 
-  # Path to PKI engine for certificate signing
-  # Can be overridden by VAULT_PKI_MOUNT environment variable
-  # Default: pki
   pki_mount: "pki"
   pki_role: "yubikey"
 
-  # Path to certificate authentication engine
-  # Can be overridden by VAULT_CERT_AUTH_MOUNT environment variable
-  # Default: cert
   cert_auth_mount: "cert"
-  cert_auth_role: "yubikey"
-
-  # Path to CA certificate for TLS verification
-  # Can be overridden by VAULT_CA_FILE environment variable
-  ca_file: "/etc/ssl/certs/vault-ca.pem"
-
-  # Skip TLS verification (not recommended for production)
-  # Can be overridden by VAULT_SKIP_VERIFY environment variable
-  # Default: false
-  skip_verify: false
+  cert_auth_role: ""
