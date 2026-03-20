@@ -350,7 +350,7 @@ func (c *Config) GetVaultPKISignPath() (string, error) {
 		return "", fmt.Errorf("could not create signing path, missing mount or role")
 	}
 	return fmt.Sprintf(
-		"%s/sign-verbatim/%s",
+		"%s/sign/%s",
 		strings.Trim(c.Vault.PKIMount, "/"),
 		strings.Trim(c.Vault.PKIRole, "/"),
 	), nil

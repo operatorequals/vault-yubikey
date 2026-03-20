@@ -206,9 +206,10 @@ func signCSRWithVault(cfg *config.Config, csr *x509.CertificateRequest) (*x509.C
 
 	// Prepare request data for Vault PKI sign endpoint
 	data := map[string]interface{}{
-		"csr":    string(csrPEM),
-		"format": "pem",
-		"ttl":    cfg.GetCSRTTLString(),
+		"csr":         string(csrPEM),
+		"format":      "pem",
+		"ttl":         cfg.GetCSRTTLString(),
+		"common_name": cfg.CSR.CommonName,
 	}
 
 	// Call Vault PKI sign endpoint
