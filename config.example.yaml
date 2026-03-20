@@ -1,0 +1,74 @@
+# vault-yubikey-ng Configuration Example
+# This file demonstrates all available configuration options.
+# Copy this file to ~/.vault-yubikey.yaml or specify its path via VAULT_YUBIKEY_CONFIG environment variable.
+# Environment variables take precedence over values in this file.
+
+# Certificate Signing Request (CSR) Configuration
+# These fields define the subject and extensions for the certificate
+csr:
+  # Subject fields
+  common_name: "example.com" # Common name (CN) - typically a hostname
+  organization: "My Organization Inc." # Organization name (O)
+  organizational_unit: "Security Department" # Organizational unit (OU)
+  country: "US" # Country code (C) - 2 letter ISO code
+  locality: "San Francisco" # City/Locality (L)
+  province: "California" # State/Province (ST)
+  street_address: "123 Main Street" # Street address (optional)
+  postal_code: "94105" # Postal/ZIP code (optional)
+
+  # Certificate extensions
+  dns_names: # DNS SAN entries
+    - "example.com"
+    - "*.example.com"
+  email_addresses: # Email SAN entries
+    - "admin@example.com"
+  ip_addresses: # IP address SAN entries
+    - "192.168.1.1"
+    - "10.0.0.1"
+  uris: # URI SAN entries
+    - "spiffe://example.com/service"
+
+# Yubikey Configuration
+yubikey:
+  # Algorithm for key generation
+  # Options: rsa1024, rsa2048, rsa3072, rsa4096, ec256, ec384, ed25519
+  # Default: rsa2048
+  algorithm: "rsa2048"
+
+  # Yubikey slot to use for key storage
+  # Options: 9a (authentication), 9c (signature), 9d (key management), 9e (card authentication)
+  # Default: 9a
+  slot: "9a"
+
+  # Touch policy for Yubikey operations
+  # Options: always, never, cached
+  # Default: always
+  touch_policy: "always"
+
+# Vault Configuration
+vault:
+  # Vault server address
+  # Can be overridden by VAULT_ADDR environment variable
+  # Default: https://127.0.0.1:8200
+  vault_address: "https://vault.example.com:8200"
+
+  # Path to PKI engine for certificate signing
+  # Can be overridden by VAULT_PKI_MOUNT environment variable
+  # Default: pki
+  pki_mount: "pki"
+  pki_role: "yubikey"
+
+  # Path to certificate authentication engine
+  # Can be overridden by VAULT_CERT_AUTH_MOUNT environment variable
+  # Default: cert
+  cert_auth_mount: "cert"
+  cert_auth_role: "yubikey"
+
+  # Path to CA certificate for TLS verification
+  # Can be overridden by VAULT_CA_FILE environment variable
+  ca_file: "/etc/ssl/certs/vault-ca.pem"
+
+  # Skip TLS verification (not recommended for production)
+  # Can be overridden by VAULT_SKIP_VERIFY environment variable
+  # Default: false
+  skip_verify: false
