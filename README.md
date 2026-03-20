@@ -344,3 +344,7 @@ func main() {
 * Currently a [fork](https://github.com/tianon/piv-go/tree/shared) of [`go-piv/piv-go`](https://github.com/go-piv/piv-go) is used that allows for shared (non-blocking) connections to Yubikey. Without it, one needs to terminate all processes using the Yubikey before running the tool.
 
 ## License
+
+This project is licensed under the *GNU General Public License v3.0*.
+
+You are free to use, modify, and distribute this software under the terms of the GPL v3 license. For the full license text, see the [LICENSE](LICENSE) file or visit https://www.gnu.org/licenses/gpl-3.0.en.html.
