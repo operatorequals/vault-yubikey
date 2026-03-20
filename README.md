@@ -10,6 +10,7 @@ A Go Package and CLI tool to login into Hashicorp Vault / OpenBao using TLS Cert
 ```bash
 $ export MGMT_KEY=010203040506070801020304050607080102030405060708
 $ vault-yubikey register --management-key-env MGMT_KEY --config config.yaml
+
 === Configuration Summary ===
 
 CSR Configuration:
@@ -92,7 +93,15 @@ Accessing the key pair in YubiKey.
 Successfully authenticated to Vault and token stored
 ```
 
+The token is stored in `$HOME/.vault-token` file, where it is automatically read by `vault` and `bao` CLI.
+
 ## Configuration
+
+The configuration can be provided to `vault-yubikey` using the `config` option or be read from the `$HOME/.vault-yubikey.yaml` file.
+
+The configuration file provides options for the Certificate Signing Request (CSR) generation and signing (Subject, Expiration, etc), as well as Yubikey PIV options (PIV Slot, Touch Policy) and Vault / OpenBao  connectivity (address, PKI mount and role, TLS Cert Auth mount, etc).
+
+Most variables can be overriden by Environment Variables, including the Vault client ones (e.g: `VAULT_ADDR`, `VAULT_TOKEN`, `VAULT_SKIP_VERIFY`, etc).
 
 ### YAML Schema
 
@@ -100,5 +109,12 @@ Successfully authenticated to Vault and token stored
 
 ## Import in your code
 
+## References
+
+* This project has started from a blog post, explaining fundamentals  of Vault-Yubikey mTLS authentication, but does not handle the generation of keypairs inside the Yubikey, and uses imported keys instead:
+  https://www.malgregator.com/post/vault-authentication-with-yubikey/
+
+* Yubikeys are currently used for Vault authentication through U2F (not PIV certificates) with 3rd party plugins:
+  https://github.com/bruj0/vault-plugin-auth-u2f
 
 ## License
