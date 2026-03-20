@@ -185,7 +185,7 @@ vault:
 
 | Field | Type | Description | Default |
 |-------|------|-------------|---------|
-| `common_name` | string | Common Name (CN) - typically a hostname or email | Required |
+| `common_name` | string | Common Name (CN) - typically a hostname or email | Required. Can be overriden by `--common-name` flag in CLI and `ykvault.NewCertificate` argument |
 | `organization` | string | Organization name (O) | - |
 | `organizational_unit` | string | Organizational unit (OU) | - |
 | `country` | string | Country code (C) - 2 letter ISO code | - |
